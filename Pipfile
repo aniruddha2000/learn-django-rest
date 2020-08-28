@@ -12,6 +12,10 @@ pytest = "*"
 pytest-django = "*"
 isort = "*"
 flake8 = "*"
+pygments = "*"
 
 [requires]
 python_version = "3.6"
+
+[scripts]
+server = "python manage.py runserver"
