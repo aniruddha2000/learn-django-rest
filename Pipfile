@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 django = "==3.1"
 djangorestframework = "==3.11"
+pytest = "*"
+pytest-django = "*"
+isort = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.6"
