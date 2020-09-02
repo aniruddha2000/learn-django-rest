@@ -1,20 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework import permissions, renderers, viewsets
-from rest_framework.decorators import action, api_view
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
 
 from .models import Snippet
 from .permissions import IsOwnerOrReadOnly
 from .serializers import SnippetSerializer, UserSerializer
-
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'user': reverse('user-list', request=request, format=format),
-        'snippet': reverse('snippet-list', request=request, format=format),
-    })
 
 
 class SnippetViewSet(viewsets.ModelViewSet):
@@ -24,10 +15,10 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     Additionally we also provide an extra `highlight` action.
     """
-    queryset = User.objects.all()
+    queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permissions_classes = [permissions.IsAuthenticatedOrReadOnly,
-                           IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def highlight(self, request, *args, **kwargs):
